@@ -31,9 +31,13 @@ function ToDoHtml(obj){
 }
 function addClass(arr){
     for (let i=0;i<arr.length;i++){
-        if (arr[i][complete]) {
+        if (arr[i]['complete']) {
             listText[i].classList.add('text')
             circle[i].classList.add('circle-select')
+        }
+        else{
+            listText[i].classList.remove('text')
+            circle[i].classList.remove('circle-select')
         }
     }
 }
@@ -44,11 +48,11 @@ function creatHtmls(arr) {
     }).join('')
 }
 
-function complete(){
-    for(let i=1;i<listText.length;i++){
+function complete(arr){
+    for(let i=1;i<=arr.length;i++){
         listText[i].onclick=function (){
-            if (toDolist[i-1][complete]) toDolist[i-1][complete]===false
-            else toDolist[i-1][complete]===true
+            arr[i]['complete'] = !arr[i]['complete'];
+            addClass(toDolist)
         }
     }
 }
@@ -58,7 +62,7 @@ function closelist(arr){
             arr.splice(i,1)
             list.innerHTML = creatHtmls(arr)
             addClass(arr)
-            complete()
+            complete(toDolist)
             closelist(arr)
         }
     }
@@ -66,7 +70,7 @@ function closelist(arr){
 
 list.innerHTML = creatHtmls(toDolist)
 addClass(toDolist)
-complete()
+complete(toDolist)
 closelist(toDolist)
 
 
@@ -77,12 +81,12 @@ closelist(toDolist)
 
 document.getElementById('input').addEventListener('keypress',(event) => {
     if (event.key === 'Enter') {
-        toDolist.push(event.target.value)
-
+        toDolist.push({title:event.target.value,complete:false})
         document.getElementById('input').value='';
         list.innerHTML = creatHtmls(toDolist)
         addClass(toDolist)
-        complete()
+        complete(toDolist)
         closelist(toDolist)
     }
 })
+
