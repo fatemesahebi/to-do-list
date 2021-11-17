@@ -1,5 +1,6 @@
 html{
     font-size: 62.5%;
+    --font-color:#676666;
 }
 body{
     font-size: 1.8rem;
@@ -8,7 +9,7 @@ body{
     margin: 0;
     box-sizing: border-box;
     font-family: 'Josefin Sans', sans-serif;
-    color: #676666;
+    color:var(--font-color);
 
 
 
@@ -45,11 +46,18 @@ align-items: center;
     display: inline-block;
 
 }
-.header ion-icon {
+.theme-svg{
     display: inline-block;
     font-size: 4rem;
     /*justify-self: flex-end;*/
     /*width: inherit;*/
+}
+#moon{
+    display: inline-block;
+}
+#sun{
+    display: none;
+
 }
 .circle{
     width: 25px;
