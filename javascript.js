@@ -83,10 +83,12 @@ document.getElementById('input').addEventListener('keypress',(event) => {
     if (event.key === 'Enter') {
         toDolist.push({title:event.target.value,complete:false})
         document.getElementById('input').value='';
+        event.preventDefault();
         list.innerHTML = creatHtmls(toDolist)
         addClass(toDolist)
         complete(toDolist)
         closelist(toDolist)
+
     }
 })
 
