@@ -16,7 +16,7 @@ let activeText=document.getElementById('acitveText')
 let clear=document.getElementById('clear')
 let filterOptions=document.getElementsByClassName('filter--options')
 let filterNum=1
-
+filterOptions[0].style.color='var(--blue)'
 let toDolist = [
 {title:"Complete online JavaScript course",
 complete:false},
@@ -213,5 +213,11 @@ for (let i=0;i<filterOptions.length;i++){
        }
 
         if(filterOptions[i].style.color!=='var(--blue)') filterOptions[i].style.color='var(--filter-hover-color)'
+    }
+    filterOptions[i].onmouseout=function (){
+        for(let j=0;j<filterOptions.length;j++){
+            if(filterOptions[j].style.color!=='var(--blue)')
+                filterOptions[j].style.color="var(--font-color)"
+        }
     }
 }

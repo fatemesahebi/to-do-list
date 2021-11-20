@@ -148,9 +148,4 @@ outline: none;
 .filter--options,#clear{
     cursor: pointer;
 }
-/*.filter--options:hover{*/
-/*    color: var(--filter-hover-color);*/
-/*}*/
-#all{
-    color: var(--blue);
-}
+
