@@ -1,6 +1,6 @@
 // let input=document.getElementById('input')
 let listText= document.getElementsByClassName('list-item-contain')
-let listBox=document.getElementsByClassName('list-item')
+// let listBox=document.getElementsByClassName('list-item')
 let circle=document.getElementsByClassName('circle')
 let close=document.getElementsByClassName('close')
 let list=document.getElementById('list--items')
@@ -14,6 +14,8 @@ let completeFilter=document.getElementById('complete')
 let all=document.getElementById('all')
 let activeText=document.getElementById('acitveText')
 let clear=document.getElementById('clear')
+let filterOptions=document.getElementsByClassName('filter--options')
+let filterNum=1
 
 let toDolist = [
 {title:"Complete online JavaScript course",
@@ -25,6 +27,12 @@ complete:false},
     {title:"Read for 1 hour",
         complete:false}
 ]
+
+let data = localStorage.getItem("TODO");
+if (!localStorage.getItem('TODO')) {
+    localStorage.setItem("TODO", JSON.stringify(toDolist));
+}
+toDolist = JSON.parse(data)
 function activeNum(){
     let activeNum=toDolist.filter(item=>item['complete']===false).length
     activeText.innerHTML=`${[activeNum]} items left`
@@ -70,11 +78,15 @@ closelist(toDolist)
 activeNum()
 
 function complete(arr){
-    for(let i=0;i<listText.length;i++){
-        listText[i].onclick=function (){
+    for(let i=0;i<arr.length;i++){
+       listText[i].onclick=function (){
             arr[i]['complete'] = !arr[i]['complete'];
-            addClass(toDolist)
+            addClass(arr)
             activeNum()
+           localStorage.setItem("TODO", JSON.stringify(toDolist));
+           if(filterNum===1) onShow()
+           if (filterNum===2) onActive()
+           if (filterNum===3) onComplete()
         }
     }
 }
@@ -83,6 +95,7 @@ function closelist(arr){
         close[i].onclick = function () {
             arr.splice(i,1)
             list.innerHTML = creatHtmls(arr)
+            localStorage.setItem("TODO", JSON.stringify(toDolist));
             addClass(arr)
             complete(arr)
             closelist(arr)
@@ -107,11 +120,7 @@ themeSvg.onclick = function (){
         theme[1].style.backgroundColor='#252736'
         document.getElementsByClassName('list')[0].style.boxShadow='2px 16px 25px #1F242AFF'
         main.style.backgroundImage='url("image/bg-desktop-dark.73e47dbb.jpg")'
-        // document.querySelector(':root').style.setProperty(' --filter-hover-color','#dcd9d9')
-        document.documentElement.style.setProperty(' --filter-hover-color','#dcd9d9')
-
-
-
+        document.documentElement.style.setProperty('--filter-hover-color','#dcd9d9')
     }
     else{
         moon.style.display='inline-block'
@@ -121,13 +130,7 @@ themeSvg.onclick = function (){
         theme[1].style.backgroundColor='white'
         document.getElementsByClassName('list')[0].style.boxShadow='2px 16px 25px lightgray'
         main.style.backgroundImage='url("image/bg-desktop-light.3508d620.jpg")'
-        // document.querySelector(':root').style.setProperty(' --filter-hover-color','#3d3d3d')
-        document.documentElement.style.setProperty(' --filter-hover-color','#3d3d3d')
-
-
-
-
-
+        document.documentElement.style.setProperty('--filter-hover-color','#3d3d3d')
 
     }
 }
@@ -138,6 +141,7 @@ document.getElementById('input').addEventListener('keypress',(event) => {
         document.getElementById('input').value='';
         event.preventDefault();
         list.innerHTML = creatHtmls(toDolist)
+        localStorage.setItem("TODO", JSON.stringify(toDolist));
         addClass(toDolist)
         complete(toDolist)
         closelist(toDolist)
@@ -146,12 +150,12 @@ document.getElementById('input').addEventListener('keypress',(event) => {
 
     }
 })
-completeFilter.onclick=function (){
+function onComplete(){
+    filterNum=3
     completeFilter.style.color='var(--blue)'
     activeFilter.style.color='inherit'
     all.style.color='inherit'
-  let completeList= toDolist.filter(item=>item['complete']===true)
-    console.log(completeList)
+    let completeList= toDolist.filter(item=>item['complete']===true)
     list.innerHTML = creatHtmls(completeList)
     addClass(completeList)
     complete(completeList)
@@ -159,8 +163,11 @@ completeFilter.onclick=function (){
     activeNum()
 
 }
+completeFilter.addEventListener("click", onComplete)
 
-activeFilter.onclick=function (){
+activeFilter.onclick=onActive
+    function onActive(){
+    filterNum=2
     activeFilter.style.color='var(--blue)'
     all.style.color='inherit'
     completeFilter.style.color='inherit'
@@ -171,7 +178,10 @@ activeFilter.onclick=function (){
     activeNum()
     closelist(activeList)
 }
-all.onclick=function (){
+
+all.onclick=onShow
+    function onShow(){
+    filterNum=1
     all.style.color='var(--blue)'
     activeFilter.style.color='inherit'
     completeFilter.style.color='inherit'
@@ -182,12 +192,26 @@ all.onclick=function (){
     closelist(toDolist)
     activeNum()
 }
-clear.onclick=function (){
-   toDolist=toDolist.filter(item=>item['complete']===false)
+clear.onclick=function () {
+    toDolist = toDolist.filter(item => item['complete'] === false)
     list.innerHTML = creatHtmls(toDolist)
     addClass(toDolist)
     complete(toDolist)
     closelist(toDolist)
     activeNum()
+    localStorage.setItem("TODO", JSON.stringify(toDolist));
+    if (filterNum === 1) onShow()
+    if (filterNum === 2) onActive()
+    if (filterNum === 3) onComplete()
 }
 
+for (let i=0;i<filterOptions.length;i++){
+    filterOptions[i].onmouseenter=function (){
+       for(let j=0;j<filterOptions.length;j++){
+           if(filterOptions[j].style.color!=='var(--blue)')
+               filterOptions[j].style.color="var(--font-color)"
+       }
+
+        if(filterOptions[i].style.color!=='var(--blue)') filterOptions[i].style.color='var(--filter-hover-color)'
+    }
+}

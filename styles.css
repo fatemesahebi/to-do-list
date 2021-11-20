@@ -13,8 +13,6 @@ body{
     font-family: 'Josefin Sans', sans-serif;
     color:var(--font-color);
 
-
-
 }
 .main{
     background-image: url("image/bg-desktop-light.3508d620.jpg");
@@ -147,12 +145,12 @@ outline: none;
     align-items: center;
     justify-self: center;
 }
-#active, #complete,#all,#clear{
+.filter--options,#clear{
     cursor: pointer;
 }
-#active:hover, #complete:hover,#all:hover{
-    color: var(--filter-hover-color);
-}
+/*.filter--options:hover{*/
+/*    color: var(--filter-hover-color);*/
+/*}*/
 #all{
     color: var(--blue);
 }

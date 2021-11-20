@@ -5,7 +5,7 @@
     <title>to do list</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 </head>
 <body>
 <div class="main">
@@ -38,9 +38,9 @@
         <div class="theme-position filter">
             <p id="acitveText"></p>
             <div>
-            <p id="all">All</p>
-            <p id="active">Active</p>
-            <p id="complete">complete</p>
+            <p id="all" class="filter--options">All</p>
+            <p id="active" class="filter--options">Active</p>
+            <p id="complete" class="filter--options">complete</p>
                 </div>
             <p id="clear">clear complete</p>
         </div>
@@ -51,5 +51,11 @@
 </body>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+    const dragArea = document.querySelector("#list--items")
+    new Sortable(dragArea, {
+        animation: 350
+    }) ;
+</script>
 </html>
 
