@@ -1,6 +1,5 @@
-// let input=document.getElementById('input')
+//
 let listText= document.getElementsByClassName('list-item-contain')
-// let listBox=document.getElementsByClassName('list-item')
 let circle=document.getElementsByClassName('circle')
 let close=document.getElementsByClassName('close')
 let list=document.getElementById('list--items')
@@ -15,8 +14,11 @@ let all=document.getElementById('all')
 let activeText=document.getElementById('acitveText')
 let clear=document.getElementById('clear')
 let filterOptions=document.getElementsByClassName('filter--options')
+
 let filterNum=1
 filterOptions[0].style.color='var(--blue)'
+moon.style.display='inline-block'
+
 let toDolist = [
 {title:"Complete online JavaScript course",
 complete:false},
