@@ -233,10 +233,6 @@ clear.onclick=function () {
 // hover setting
 for (let i=0;i<filterOptions.length;i++){
     filterOptions[i].onmouseenter=function (){
-       for(let j=0;j<filterOptions.length;j++){
-           if(filterOptions[j].style.color!=='var(--blue)')
-               filterOptions[j].style.color="var(--font-color)"
-       }
 
         if(filterOptions[i].style.color!=='var(--blue)') filterOptions[i].style.color='var(--filter-hover-color)'
     }
