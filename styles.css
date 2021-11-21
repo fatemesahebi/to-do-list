@@ -67,7 +67,6 @@ align-items: center;
     margin: 0 15px 0 30px;
 }
 .list-item:hover .circle{
-    /*background: rgb(34,195,177);*/
     border: rgb(34,195,177) solid 1px;
 }
 .circle-select{
@@ -112,8 +111,6 @@ outline: none;
 .text{
     color: #cacde8;
     text-decoration: line-through;
-
-
 }
 .list{
     width: 100%;
@@ -147,5 +144,31 @@ outline: none;
 }
 .filter--options,#clear{
     cursor: pointer;
+}
+#filter-mob{
+    display: none;
+}
+@media screen and (max-width: 900px) {
+    #filter-mob{
+        width:100%;
+        margin-top: 30px;
+        display: flex;
+        flex-direction:row ;
+        justify-content: center;
+        align-items: center;
+        column-gap: 15px;
+    }
+    #filter-desktop{
+        display: none;
+    }
+    .container{
+        width: 75vw;
+    }
+    .main{
+    background-size:inherit;
+}
+    input{
+        width: 60%;
+    }
 }
 
